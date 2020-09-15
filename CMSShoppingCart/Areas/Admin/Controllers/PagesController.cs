@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using CMSShoppingCart.Infrastructure;
 using CMSShoppingCart.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace CMSShoppingCart.Areas.Admin.Controllers
 {
@@ -19,6 +20,9 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
             this.context = context;
         }
 
+        /// <summary>
+        ///     GET /admin/pages
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             IQueryable<Page> pages = from p in context.Pages orderby p.Sorting select p;
@@ -26,6 +30,19 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
             List<Page> pagesList = await pages.ToListAsync();
 
             return View(pagesList);
+        }
+
+        /// <summary>
+        ///     GET /admin/pages/details/{id}
+        /// </summary>
+        public async Task<IActionResult> Details(int id)
+        {
+            Page page = await context.Pages.FirstOrDefaultAsync(x => x.Id == id);
+            if (page == null)  
+            {
+                return NotFound();
+            }
+            return View(page);
         }
     }
 }
