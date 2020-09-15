@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CMSShoppingCart.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CMSShoppingCart.Infrastructure
@@ -12,5 +13,7 @@ namespace CMSShoppingCart.Infrastructure
             :base(options)
         {
         }
+
+        public DbSet<Page> Pages { get; set; }
     }
 }
