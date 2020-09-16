@@ -72,7 +72,9 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
                 context.Add(page);
                 await context.SaveChangesAsync();
 
-         
+                TempData["Success"] = $"New page '{page.Title}' has been added.";
+
+
                 return RedirectToAction("Index", "Pages");
             }
 
