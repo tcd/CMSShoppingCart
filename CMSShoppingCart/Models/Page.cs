@@ -14,7 +14,6 @@ namespace CMSShoppingCart.Models
             MinLength(2, ErrorMessage = "Minimum length is 2"),
         ]
         public string Title { get; set; }
-        [Required]
         public string Slug { get; set; }
         [
              Required,
