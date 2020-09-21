@@ -170,5 +170,27 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// GET /admin/pages/reorder
+        /// FIXME: change `id` param to `ids`.
+        /// </summary>
+        /// <param name="id">Primary key of the record to edit</param>
+        [HttpPost]
+        public async Task<IActionResult> Reorder(int[] id)
+        {
+            int count = 1;
+
+            foreach (var pageId in id)
+            {
+                Page page = await context.Pages.FindAsync(pageId);
+                page.Sorting = count;
+                context.Update(page);
+                await context.SaveChangesAsync();
+                count++;
+            }
+
+            return Ok();
+        }
+
     }
 }
