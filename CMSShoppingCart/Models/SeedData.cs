@@ -32,21 +32,21 @@ namespace CMSShoppingCart.Models
                         Title = "About Us",
                         Slug = "about-us",
                         Content = "about us page",
-                        Sorting = 100,
+                        Sorting = 1,
                     },                    
                     new Page
                     {
                         Title = "Services",
                         Slug = "services",
                         Content = "services page",
-                        Sorting = 100,
+                        Sorting = 2,
                     },                    
                     new Page
                     {
                         Title = "Contact",
                         Slug = "contact",
                         Content = "contact page",
-                        Sorting = 100,
+                        Sorting = 3,
                     }
                 );
                 context.SaveChanges();
