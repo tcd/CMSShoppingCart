@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,6 +42,7 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            TempData["SlugPath"] = $"{Request.Scheme}://{Request.Host}/pages/{page.Slug}";
             return View(page);
         }
 
