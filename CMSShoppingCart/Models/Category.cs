@@ -13,9 +13,6 @@ namespace CMSShoppingCart.Models
 
         public int Sorting { get; set; }
 
-        [
-            Required(ErrorMessage = "The Slug field is required"),
-        ]
         public string Slug { get; set; }
 
         [
