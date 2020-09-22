@@ -12,13 +12,14 @@ namespace CMSShoppingCart.Models
         public int Sorting { get; set; }
         public string Slug { get; set; }
         [
-            Required,
+            Required(ErrorMessage = "The Title field is required"),
             MinLength(2, ErrorMessage = "Minimum length is 2"),
         ]
         public string Title { get; set; }
         [
-             Required,
-             MinLength(4, ErrorMessage = "Minimum length is 4"),
+            Required(ErrorMessage = "The Content field is required"),
+            MinLength(4, ErrorMessage = "Minimum length is 4"),
+            RegularExpression(@"^[a-zA-Z-]*$", ErrorMessage = "Only letters and dashes are allowed"),
         ]
         public string Content { get; set; }
     }
