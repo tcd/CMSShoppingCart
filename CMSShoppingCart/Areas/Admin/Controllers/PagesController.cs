@@ -76,7 +76,6 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
 
                 TempData["Success"] = $"New page '{page.Title}' has been added.";
 
-
                 return RedirectToAction("Index");
             }
             else
@@ -132,7 +131,6 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
 
                 TempData["Success"] = $"Page '{page.Title}' has been updated.";
 
-
                 return RedirectToAction("Edit", new { id = page.Id });
             }
             else
@@ -155,8 +153,7 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
             Page page = await context.Pages.FindAsync(id);
             if (page == null)  
             {
-                TempData["Error"] = "This page does not exist!";
-                // return NotFound();
+                TempData["Error"] = "You can not delete that which does not exist <br/> - the developer";
             }
             else 
             {
@@ -170,10 +167,10 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// GET /admin/pages/reorder
+        /// POST /admin/pages/reorder
         /// FIXME: change `id` param to `ids`.
         /// </summary>
-        /// <param name="id">Primary key of the record to edit</param>
+        /// <param name="id">Form data containing new order data</param>
         [HttpPost]
         public async Task<IActionResult> Reorder(int[] id)
         {
