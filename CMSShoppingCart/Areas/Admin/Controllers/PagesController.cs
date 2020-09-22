@@ -25,9 +25,7 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             IQueryable<Page> pages = from p in context.Pages orderby p.Sorting select p;
-
             List<Page> pagesList = await pages.ToListAsync();
-
             return View(pagesList);
         }
 
@@ -107,8 +105,9 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// POST /admin/pages/create
+        /// POST /admin/pages/edit/{id}
         /// </summary>
+        /// <param name="page">Form data used to edit the record</param>
         [
             HttpPost,
             ValidateAntiForgeryToken,
@@ -118,7 +117,6 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 page.Slug = (page.Id == 1) ? "home" : page.Title.ToLower().Replace(" ", "-");
-                page.Sorting = 100;
 
                 var slug = await context.Pages
                                         .Where(x => x.Id != page.Id)
