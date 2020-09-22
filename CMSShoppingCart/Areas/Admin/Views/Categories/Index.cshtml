@@ -1,4 +1,4 @@
-@model IEnumerable<CMSShoppingCart.Models.Category>
+﻿@model IEnumerable<CMSShoppingCart.Models.Category>
 
 @{
     ViewData["Title"] = "Categories";
@@ -14,13 +14,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Sorting)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Slug)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 Actions
@@ -33,6 +30,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Slug)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
