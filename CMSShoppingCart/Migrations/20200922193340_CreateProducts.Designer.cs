@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CMSShoppingCart.Migrations
 {
-    [DbContext(typeof(CmsShoppingCartContext))]
+    [DbContext(typeof(CMSShoppingCartContext))]
     [Migration("20200922193340_CreateProducts")]
     partial class CreateProducts
     {

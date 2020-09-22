@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CMSShoppingCart.Infrastructure
 {
-    public class CmsShoppingCartContext : DbContext
+    public class CMSShoppingCartContext : DbContext
     {
-        public CmsShoppingCartContext(DbContextOptions<CmsShoppingCartContext> options)
+        public CMSShoppingCartContext(DbContextOptions<CMSShoppingCartContext> options)
             :base(options)
         {
         }

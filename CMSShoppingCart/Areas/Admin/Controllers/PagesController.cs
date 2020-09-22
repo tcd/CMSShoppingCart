@@ -12,9 +12,9 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
     [Area("Admin")]
     public class PagesController : Controller
     {
-        private readonly CmsShoppingCartContext context;
+        private readonly CMSShoppingCartContext context;
 
-        public PagesController(CmsShoppingCartContext context)
+        public PagesController(CMSShoppingCartContext context)
         {
             this.context = context;
         }

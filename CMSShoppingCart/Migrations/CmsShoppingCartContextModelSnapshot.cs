@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CMSShoppingCart.Migrations
 {
-    [DbContext(typeof(CmsShoppingCartContext))]
+    [DbContext(typeof(CMSShoppingCartContext))]
     partial class CmsShoppingCartContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
