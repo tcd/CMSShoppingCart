@@ -81,3 +81,7 @@ table.sorting tr:not(.home) {
 .ui-state-highlight {
   border: 1px dashed;
 }
+
+a:hover {
+  opacity: 0.3 !important;
+}
