@@ -341,3 +341,6 @@ healthchecksdb
 
 # VS Code settings
 .projections.json
+
+# Ignore product images 
+CMSShoppingCart/wwwroot/media/products/*
