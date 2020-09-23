@@ -19,7 +19,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Slug)
             </th>
-            <th>
+            <th class="text-center">
                 Actions
             </th>
         </tr>
@@ -34,7 +34,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Slug)
                 </td>
-                <td>
+                <td class="text-center">
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     <span>|</span> 
                     <a class="confirmDeletion" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
