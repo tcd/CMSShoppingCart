@@ -67,14 +67,14 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
                 var slug = await context.Pages.FirstOrDefaultAsync(x => x.Slug == page.Slug);
                 if (slug != null)
                 {
-                    ModelState.AddModelError("", "A Page with this title already exists.");
+                    ModelState.AddModelError("", "A Page with this title already exists");
                     return View(page);
                 }
 
                 context.Add(page);
                 await context.SaveChangesAsync();
 
-                TempData["Success"] = $"New page '{page.Title}' has been added.";
+                TempData["Success"] = $"New page '{page.Title}' has been added";
 
                 return RedirectToAction("Index");
             }
@@ -122,14 +122,14 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
                                         .FirstOrDefaultAsync(x => x.Slug == page.Slug);
                 if (slug != null)
                 {
-                    ModelState.AddModelError("", "A Page with this title already exists.");
+                    ModelState.AddModelError("", "A Page with this title already exists");
                     return View(page);
                 }
 
                 context.Update(page);
                 await context.SaveChangesAsync();
 
-                TempData["Success"] = $"Page '{page.Title}' has been updated.";
+                TempData["Success"] = $"Page '{page.Title}' has been updated";
 
                 return RedirectToAction("Edit", new { id = page.Id });
             }

@@ -39,6 +39,7 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
         /// <summary>
         /// POST /admin/categories/create
         /// </summary>
+        /// <param name="category">Form data used to create the record</param>
         [
             HttpPost,
             ValidateAntiForgeryToken,
@@ -81,7 +82,7 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
         /// <param name="id">Primary key of the record to edit</param>
         public async Task<IActionResult> Edit(int id)
         {
-            Category category = await context.Categories.FindAsync(id);
+            var category = await context.Categories.FindAsync(id);
             if (category == null)  
             {
                 return NotFound();
@@ -132,7 +133,7 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
         /// <param name="id">Primary key of the record to delete</param>
         public async Task<IActionResult> Delete(int id)
         {
-            Category category = await context.Categories.FindAsync(id);
+            var category = await context.Categories.FindAsync(id);
             if (category == null)  
             {
                 TempData["Error"] = "You can not delete that which does not exist <br/> - the developer";
@@ -159,7 +160,7 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
 
             foreach (var categoryId in id)
             {
-                Category category = await context.Categories.FindAsync(categoryId);
+                var category = await context.Categories.FindAsync(categoryId);
                 category.Sorting = count;
                 context.Update(category);
                 await context.SaveChangesAsync();
