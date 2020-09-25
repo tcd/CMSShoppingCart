@@ -342,5 +342,14 @@ healthchecksdb
 # VS Code settings
 .projections.json
 
-# Ignore product images 
+# Ignore product images
 CMSShoppingCart/wwwroot/media/products/*
+
+# DocFx
+/**/DROP/*
+/**/TEMP/*
+/**/packages/*
+/**/bin/*
+/**/obj/*
+FMSTrustRates.Documentation/_site
+FMSTrustRates.Documentation/_site_pdf
