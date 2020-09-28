@@ -46,18 +46,29 @@
                 <td>
                     <img src="~/media/products/@item.Image" width="100" alt="" />
                 </td>
-                <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <span>|</span> 
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    <span>|</span> 
-                    <a class="confirmDeletion" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <td class="text-center align-middle">
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                        <a asp-action="Details" asp-route-id="@item.Id"class="btn btn-outline-primary" role="button">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@item.Id"class="btn btn-outline-success" role="button">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id"class="confirmDeletion btn btn-outline-danger" role="button">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </div>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-@* <div class="d-flex w-100 justify-content-center">
-    <pagination page-count="@ViewBag.TotalPages" page-target="/admin/products" page-number="@ViewBag.PageNumber" page-range="@ViewBag.PageRange"></pagination>
-</div> *@
+<div class="d-flex w-100 justify-content-center">
+    <Pagination
+        page-count="@ViewBag.TotalPages"
+        page-target="/admin/products"
+        page-number="@ViewBag.PageNumber"
+        page-range="@ViewBag.PageRange"
+    ></Pagination>
+</div>

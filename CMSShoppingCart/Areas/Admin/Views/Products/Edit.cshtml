@@ -39,15 +39,19 @@
             </div>
 
             <div class="form-group">
-                @* <label asp-for="Image" class="control-label">Current Image</label> *@
+                <label asp-for="Image" class="control-label">Current Image</label>
+                <br/>
                 <img src="~/media/products/@Model.Image" width="200" alt="" />
             </div>
 
             <div class="form-group">
                 <label asp-for="Image" class="control-label">New Product Image</label>
-                <input asp-for="ImageUpload" class="form-control" />
-                <img src="" id="imgpreview" class="pt-2" alt="" />
-                <span asp-validation-for="ImageUpload" class="text-danger"></span>
+                <div class="input-group">
+                    <label asp-for="Image" class="custom-file-label">&nbsp;</label>
+                    <input asp-for="ImageUpload" class="custom-file-input" />
+                    <img src="" id="imgpreview" class="pt-2" alt="" />
+                    <span asp-validation-for="ImageUpload" class="text-danger"></span>
+                </div>
             </div>
 
             <div class="form-group">
@@ -68,8 +72,12 @@
     <script>
         CKEDITOR.replace("Description");
 
-        $("#ImagePreview").change(function() {
+        $("#ImageUpload").change(function() {
             readURL(this);
+        });
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
     </script>
 }
