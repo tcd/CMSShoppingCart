@@ -20,7 +20,7 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// GET /admin/categories
+        ///     GET /admin/categories
         /// </summary>
         public async Task<IActionResult> Index()
         {
@@ -28,33 +28,26 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// GET /admin/categories/create
+        ///     GET /admin/categories/create
         /// </summary>
-        public IActionResult Create() 
+        public IActionResult Create()
         {
             return View();
-        } 
-
+        }
 
         /// <summary>
-        /// POST /admin/categories/create
+        ///     POST /admin/categories/create
         /// </summary>
         /// <param name="category">Form data used to create the record</param>
-        [
-            HttpPost,
-            ValidateAntiForgeryToken,
-        ]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Category category)
         {
-            if (ModelState.IsValid)
-            {
-                category.Slug = category.Name.ToLower().Replace(" ", "-");
+            if (ModelState.IsValid) {
+
                 category.Sorting = 100;
 
-                var slug = await context.Categories.FirstOrDefaultAsync(x => x.Slug == category.Slug);
-                if (slug != null)
-                {
-                    ModelState.AddModelError("", "A Category with this name already exists.");
+                if (! await AddSlug(category)) {
                     return View(category);
                 }
 
@@ -64,9 +57,7 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
                 TempData["Success"] = $"New category '{category.Name}' has been added.";
 
                 return RedirectToAction("Index");
-            }
-            else
-            {
+            } else {
                 string messages = string.Join("; ", ModelState.Values
                                         .SelectMany(x => x.Errors)
                                         .Select(x => x.ErrorMessage));
@@ -77,40 +68,30 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// GET /admin/categories/edit/{id}
+        ///     GET /admin/categories/edit/{id}
         /// </summary>
         /// <param name="id">Primary key of the record to edit</param>
         public async Task<IActionResult> Edit(int id)
         {
             var category = await context.Categories.FindAsync(id);
-            if (category == null)  
-            {
+            if (category == null) {
                 return NotFound();
             }
             return View(category);
         }
 
         /// <summary>
-        /// POST /admin/categories/edit/{id}
+        ///     POST /admin/categories/edit/{id}
         /// </summary>
         /// <param name="id">Primary key of the record to edit</param>
         /// <param name="category">Form data used to edit the record</param>
-        [
-            HttpPost,
-            ValidateAntiForgeryToken,
-        ]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Category category)
         {
-            if (ModelState.IsValid)
-            {
-                category.Slug = category.Name.ToLower().Replace(" ", "-");
+            if (ModelState.IsValid) {
 
-                var slug = await context.Categories
-                                        .Where(x => x.Id != id)
-                                        .FirstOrDefaultAsync(x => x.Slug == category.Slug);
-                if (slug != null)
-                {
-                    ModelState.AddModelError("", "A Category with this name already exists.");
+                if (! await AddSlug(category)) {
                     return View(category);
                 }
 
@@ -128,47 +109,70 @@ namespace CMSShoppingCart.Areas.Admin.Controllers
         }
 
         /// <summary>
-        /// GET /admin/categories/delete/{id}
+        ///     GET /admin/categories/delete/{id}
         /// </summary>
         /// <param name="id">Primary key of the record to delete</param>
         public async Task<IActionResult> Delete(int id)
         {
             var category = await context.Categories.FindAsync(id);
-            if (category == null)  
-            {
+
+            if (category == null) {
                 TempData["Error"] = "You can not delete that which does not exist <br/> - the developer";
-            }
-            else 
-            {
+            } else {
                 context.Categories.Remove(category);
+
                 await context.SaveChangesAsync();
 
                 TempData["Success"] = $"Category '{category.Name}' has been deleted";
             }
-            
+
             return RedirectToAction("Index");
         }
 
         /// <summary>
-        /// POST /admin/categories/reorder
+        ///     POST /admin/categories/reorder
         /// </summary>
         /// <param name="id">Form data containing new order data</param>
         [HttpPost]
         public async Task<IActionResult> Reorder(int[] id)
         {
             int count = 1;
-
-            foreach (var categoryId in id)
-            {
+            foreach (var categoryId in id) {
                 var category = await context.Categories.FindAsync(categoryId);
                 category.Sorting = count;
                 context.Update(category);
                 await context.SaveChangesAsync();
                 count++;
             }
-
             return Ok();
         }
+
+        // =====================================================================
+        // Private Helper Methods
+        // =====================================================================
+
+        /// <summary>
+        ///     Generate a <see cref="Category.Slug"/> and check to see if it exists in the database yet.
+        /// </summary>
+        /// <param name="category">The <see cref="Category"/> for which a <c>Slug</c> should be generated</param>
+        /// <returns><c>true</c> if the <c>Slug</c> was successfully added</returns>
+        /// <returns><c>false</c> in all other cases</returns>
+        private async Task<bool> AddSlug(Category category)
+        {
+            category.Slug = category.Name.ToLower().Replace(" ", "-");
+
+            var slug = await this.context.Categories
+                                         .Where(x => x.Id != category.Id)
+                                         .FirstOrDefaultAsync(x => x.Slug == category.Slug);
+
+            if (slug != null) {
+                this.ModelState.AddModelError("", "A Category with this name already exists");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
 
     }
 }
